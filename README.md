@@ -43,71 +43,75 @@ This guide provides step-by-step instructions to set up a Software in the Loop (
     ```bash
     sudo apt update && sudo apt upgrade -y
     ```
+## Java Verification/Installation
 
-8. Verify Java is not installed. The output should say `Command ‘java’ not found`:
+1. Verify Java is installed. The output should say `openjdk version "xx...`
     ```bash
     java -version
     ```
+2. If Java is not installed, then it should say `Command ‘java’ not found`
 
-9. Install OpenJDK 18:
+   Install OpenJDK 18:
     ```bash
     sudo apt-get install openjdk-18-jdk
     sudo apt-get install openjdk-18-jre
     ```
 
-10. Verify the Java installation. The output should be similar to `openjdk version "18...`:
+   Verify the Java installation. The output should be similar to `openjdk version "xx...`:
     ```bash
     java -version
     ```
-
-11. Modify the `ubuntu.sh` script to use OpenJDK 18 and update gazebo version references:
+3. You shouldn't have to modify the `ubuntu.sh` script to use OpenJDK, but if you run into an error message later on asking for a different version of Java you can modify the `ubuntu.sh` script and update the gazebo version references:
     ```bash
     nano PX4-Autopilot/Tools/setup/ubuntu.sh
     ```
-    - Find and replace `java_version=` line, change 14 -> 18.
+    - Find and replace `java_version=` line, change 14 -> 18. (or whichever version you have)
     - Replace `libgazebo$gazeboversion-dev` -> `libgazebo-dev` and `gazebo$gazeboversion` -> `gazebo`.
     - Save and exit the editor (press CTRL + O to write changes, and then CTRL + X to exit).
 
 ## Gazebo Installation
-
-12. Install Gazebo:
+1. Navigate to your home directory:
+    ```bash
+    cd ~
+    ```
+2. Install Gazebo:
     ```bash
     curl -sSL http://get.gazebosim.org | sh
     ```
 
-13. Add the current user to the dialout group:
+3. Add the current user to the dialout group:
     ```bash
     sudo usermod -a -G dialout $USER
     ```
 
-14. Remove the modemmanager:
+4. Remove the modemmanager:
     ```bash
     sudo apt-get remove modemmanager -y
     ```
 
-15. Install necessary GStreamer plugins:
+5. Install necessary GStreamer plugins:
     ```bash
     sudo apt install gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
     ```
 
-16. Log out and log back in to apply the group changes.
+6. Log out and log back in to apply the group changes.
 
 ## QGroundControl Installation
 
-17. Download QGroundControl:
+1. Download QGroundControl:
     [Download QGroundControl](https://qgroundcontrol.com/downloads/)
 
-18. Navigate to the directory where QGroundControl was downloaded (assuming it's the Documents directory):
+2. Navigate to the directory where QGroundControl was downloaded (assuming it's the Downloads directory):
     ```bash
-    cd ~/Documents
+    cd ~/Downloads
     ```
 
-19. Make the QGroundControl.AppImage executable:
+3. Make the QGroundControl.AppImage executable:
     ```bash
     chmod +x ./QGroundControl.AppImage
     ```
 
-20. Run QGroundControl:
+4. Run QGroundControl:
     ```bash
     ./QGroundControl.AppImage
     ```
